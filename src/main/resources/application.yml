@@ -9,3 +9,8 @@ spring:
 springdoc:
   swagger-ui:
     path: /api-docs
+okta:
+  oauth2:
+    issuer: https://dev-877404.okta.com
+    client-id: 0oaavw1vkjCLbEWHy4x6
+    client-secret: W6BEVixfsKqwiQNLxnV6Th8dVcm352B3u6Dkrh4h
