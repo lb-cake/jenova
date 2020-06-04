@@ -21,10 +21,6 @@ public class Block implements Serializable {
   private long generationTime;
   private long magicNumber;
 
-  public Block() {
-
-  }
-
   static Block generate(Block prevBlock) {
     if (prevBlock == null) {
       return new Block(1, "0");
@@ -59,28 +55,12 @@ public class Block implements Serializable {
     return id;
   }
 
-  public long getTimestamp() {
-    return timestamp;
-  }
-
   public String getPreviousHash() {
     return previousHash;
   }
 
   public String getHashOfTheBlock() {
     return hashOfTheBlock;
-  }
-
-  @Override
-  public String toString() {
-    return "Block{" +
-        "id=" + id +
-        ", timestamp=" + timestamp +
-        ", previousHash='" + previousHash + '\'' +
-        ", hashOfTheBlock='" + hashOfTheBlock + '\'' +
-        ", generationTime=" + generationTime +
-        ", magicNumber=" + magicNumber +
-        '}';
   }
 
   private String generateHash() {
