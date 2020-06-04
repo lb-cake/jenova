@@ -43,7 +43,6 @@ public class Block implements Serializable {
 
   public boolean validate(String previousHash) {
     if (!this.previousHash.equals(previousHash)) return false;
-    if (!generateHash().equals(this.hashOfTheBlock)) return false;
     return true;
   }
 
@@ -69,5 +68,16 @@ public class Block implements Serializable {
   
   private String generateHash() {
     return StringUtil.applySha256(id + " " + timestamp + " " + previousHash);
+  }
+
+  @Override
+  public String toString() {
+    return "Block{" +
+        "id=" + id +
+        ", timestamp=" + timestamp +
+        ", previousHash='" + previousHash + '\'' +
+        ", hashOfTheBlock='" + hashOfTheBlock + '\'' +
+        ", generationTime=" + generationTime +
+        '}';
   }
 }
