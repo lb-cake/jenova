@@ -19,7 +19,7 @@ public class Block implements Serializable {
   private String previousHash;
   private String hashOfTheBlock;
   private long generationTime;
-  private long magicNumber;
+  private int noonce;
 
   static Block generate(Block prevBlock) {
     if (prevBlock == null) {
@@ -37,18 +37,21 @@ public class Block implements Serializable {
     String hashBegin = "0".repeat(Blockchain.getZerosQty());
     LocalDateTime start = LocalDateTime.now();
 
-    for (magicNumber = 0; magicNumber < Long.MAX_VALUE; magicNumber++) {
-      hash = generateHash();
-      if (hash.startsWith(hashBegin)) break;
-    }
     this.hashOfTheBlock = hash;
     this.generationTime = Duration.between(start, LocalDateTime.now()).toSeconds();
   }
 
   public boolean validate(String previousHash) {
     if (!this.previousHash.equals(previousHash)) return false;
-    if (!generateHash().equals(this.hashOfTheBlock)) return false;
     return true;
+  }
+
+  public void mineBlock(int difficulty) {
+    String target = new String(new char[difficulty]).replace('\0', '0'); // Create a string with difficulty * "0"
+    while (!hashOfTheBlock.substring(0, difficulty).equals(target)) {
+      noonce++;
+      hashOfTheBlock = generateHash();
+    }
   }
 
   public long getId() {
@@ -62,8 +65,19 @@ public class Block implements Serializable {
   public String getHashOfTheBlock() {
     return hashOfTheBlock;
   }
-
+  
   private String generateHash() {
-    return StringUtil.applySha256(id + " " + timestamp + " " + previousHash + " " + magicNumber);
+    return StringUtil.applySha256(id + " " + timestamp + " " + previousHash);
+  }
+
+  @Override
+  public String toString() {
+    return "Block{" +
+        "id=" + id +
+        ", timestamp=" + timestamp +
+        ", previousHash='" + previousHash + '\'' +
+        ", hashOfTheBlock='" + hashOfTheBlock + '\'' +
+        ", generationTime=" + generationTime +
+        '}';
   }
 }

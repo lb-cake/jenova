@@ -7,8 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +26,8 @@ public class Blockchain implements Serializable {
   private static int zerosQty;
   final static long serialVersionUID = 1L;
 
-  private ArrayList<Block> blocks;
+  @OneToMany
+  private List<Block> blocks;
 
   public Blockchain() {}
 
