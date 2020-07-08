@@ -1,6 +1,5 @@
 package net.discobear.jenova.controller;
 
-import javax.websocket.server.PathParam;
 import net.discobear.jenova.model.Block;
 import net.discobear.jenova.repository.BlockRepository;
 import org.slf4j.Logger;
